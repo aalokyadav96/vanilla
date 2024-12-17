@@ -1,0 +1,19 @@
+.event-timeline {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .timeline-item {
+    margin-bottom: 10px;
+  }
+  
+  .timeline-time {
+    font-weight: bold;
+    margin-right: 5px;
+  }
+  
+  .timeline-description {
+    display: inline;
+  }
+  

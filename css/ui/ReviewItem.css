@@ -1,0 +1,18 @@
+.review-item {
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+  }
+  
+  .review-rating {
+    color: #ff9800;
+  }
+  
+  .review-item h4 {
+    margin: 0;
+  }
+  
+  .review-item p {
+    margin: 5px 0 0;
+    color: #555;
+  }
+  

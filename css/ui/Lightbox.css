@@ -1,0 +1,64 @@
+/* Lightbox overlay */
+.lightbox-overlay {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  /* Lightbox content */
+  .lightbox-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    text-align: center;
+  }
+  
+  /* Lightbox image */
+  .lightbox-content img {
+    width: 100%;
+    height: auto;
+    max-height: 80vh;
+  }
+  
+  /* Navigation buttons */
+  .lightbox-prev-btn,
+  .lightbox-next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+  .lightbox-prev-btn {
+    left: 10px;
+  }
+  
+  .lightbox-next-btn {
+    right: 10px;
+  }
+  
+  /* Close button */
+  .lightbox-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+  }
+  

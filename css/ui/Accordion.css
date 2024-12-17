@@ -1,0 +1,26 @@
+.accordion {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+  }
+  
+  .accordion-section {
+    border-top: 1px solid #ccc;
+  }
+  
+  .accordion-section:first-child {
+    border-top: none;
+  }
+  
+  .accordion-header {
+    padding: 10px;
+    background: linear-gradient(180deg, #a2a2a2, #777777, #a2a2a2);
+    cursor: pointer;
+    color: white;
+}
+  
+  .accordion-body {
+    padding: 10px;
+    background-color: #fff;
+  }
+  
