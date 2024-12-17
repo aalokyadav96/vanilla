@@ -61,7 +61,6 @@ function Home() {
     // Create the carousel with a set of images
     const images = [
       'https://via.placeholder.com/800x400?text=Image+1',
-      'https://i.pinimg.com/736x/d3/1f/cd/d31fcd7ba6ce4b5b86a8f95b58cbcc9d.jpg',
       'https://via.placeholder.com/800x400?text=Image+3',
     ];
   

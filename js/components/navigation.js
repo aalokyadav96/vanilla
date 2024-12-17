@@ -10,54 +10,133 @@ function createNav() {
         { href: '/', label: 'Home' },
     ];
 
-    const renderNavItems = (items) =>
-        items.map(item => `<li><a href="${item.href}" class="nav-link">${item.label}</a></li>`).join('');
+    // Create Header
+    const header = document.createElement("header");
+    header.className = "navbar";
 
-    const createDropdown = `
-        <li class="dropdown">
-            <button class="dropdown-toggle" id="create-menu" aria-haspopup="true" aria-expanded="false">Create</button>
-            <div class="dropdown-menu" aria-label="Create Menu">
-                <a href="/create" class="dropdown-item">Eva</a>
-                <a href="/place" class="dropdown-item">Loca</a>
-            </div>
-        </li>`;
+    // Navbar Container
+    const navbarContainer = document.createElement("div");
+    navbarContainer.className = "navbar-container";
 
-    const authButton = isLoggedIn
-        ? `
-            <li class="dropdown">
-                <div class="profile-dropdown-toggle" tabindex="0">
-                    <img src="/userpic/thumb/${state.user || 'default'}.jpg" alt="Profile Picture" class="profile-image">
-                </div>
-                <div class="profile-dropdown-menu">
-                    <a href="/profile" class="dropdown-item">Profile</a>
-                    <a href="/settings" class="dropdown-item">Settings</a>
-                    <button class="dropdown-item logout-btn">Logout</button>
-                </div>
-            </li>`
-        : `<li><button class="btn auth-btn">Login</button></li>`;
+    // Logo
+    const logoDiv = document.createElement("div");
+    logoDiv.className = "logo";
 
-    return `
-        <header class="navbar">
-            <div class="navbar-container">
-                <div class="logo">
-                    <a href="/" class="logo-link">Show Saw</a>
-                </div>
-                <nav class="nav-menu">
-                    <ul class="nav-list">
-                        ${createDropdown}
-                        ${renderNavItems(navItems)}
-                        ${authButton}
-                    </ul>
-                </nav>
-                <div class="mobile-menu-icon" aria-label="Toggle menu" aria-expanded="false" tabindex="0">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </div>
-            </div>
-        </header>
-        <div id="loading" class="loading-overlay" style="display:none;">Loading...</div>`;
+    const logoLink = document.createElement("a");
+    logoLink.href = "/";
+    logoLink.className = "logo-link";
+    logoLink.textContent = "Show Saw";
+    logoDiv.appendChild(logoLink);
+
+    // Navigation Menu
+    const nav = document.createElement("nav");
+    nav.className = "nav-menu";
+
+    const ul = document.createElement("ul");
+    ul.className = "nav-list";
+
+    // Render Nav Items
+    navItems.forEach((item) => {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.href = item.href;
+        a.className = "nav-link";
+        a.textContent = item.label;
+        li.appendChild(a);
+        ul.appendChild(li);
+    });
+
+    // Create Dropdown for 'Create' Menu
+    const createDropdown = document.createElement("li");
+    createDropdown.className = "dropdown";
+
+    const createButton = document.createElement("button");
+    createButton.className = "dropdown-toggle";
+    createButton.id = "create-menu";
+    createButton.setAttribute("aria-haspopup", "true");
+    createButton.setAttribute("aria-expanded", "false");
+    createButton.textContent = "Create";
+
+    const dropdownMenu = document.createElement("div");
+    dropdownMenu.className = "dropdown-menu";
+    dropdownMenu.setAttribute("aria-label", "Create Menu");
+
+    const createLinks = [
+        { href: "/create", text: "Eva" },
+        { href: "/place", text: "Loca" },
+    ];
+
+    createLinks.forEach(link => {
+        const a = document.createElement("a");
+        a.href = link.href;
+        a.className = "dropdown-item";
+        a.textContent = link.text;
+        dropdownMenu.appendChild(a);
+    });
+
+    createDropdown.appendChild(createButton);
+    createDropdown.appendChild(dropdownMenu);
+    ul.appendChild(createDropdown);
+
+    // Auth Button or Profile Dropdown
+    if (isLoggedIn) {
+        const profileDropdown = document.createElement("li");
+        profileDropdown.className = "dropdown";
+
+        const profileToggle = document.createElement("div");
+        profileToggle.className = "profile-dropdown-toggle";
+        profileToggle.tabIndex = 0;
+
+        const profileImage = document.createElement("img");
+        profileImage.src = `/userpic/thumb/${state.user || 'default'}.jpg`;
+        profileImage.alt = "Profile Picture";
+        profileImage.className = "profile-image";
+
+        profileToggle.appendChild(profileImage);
+
+        const profileMenu = document.createElement("div");
+        profileMenu.className = "profile-dropdown-menu";
+
+        const profileLink = document.createElement("a");
+        profileLink.href = "/profile";
+        profileLink.className = "dropdown-item";
+        profileLink.textContent = "Profile";
+
+        const settingsLink = document.createElement("a");
+        settingsLink.href = "/settings";
+        settingsLink.className = "dropdown-item";
+        settingsLink.textContent = "Settings";
+
+        const logoutButton = document.createElement("button");
+        logoutButton.className = "dropdown-item logout-btn";
+        logoutButton.textContent = "Logout";
+
+        profileMenu.appendChild(profileLink);
+        profileMenu.appendChild(settingsLink);
+        profileMenu.appendChild(logoutButton);
+
+        profileDropdown.appendChild(profileToggle);
+        profileDropdown.appendChild(profileMenu);
+        ul.appendChild(profileDropdown);
+    } else {
+        const loginLi = document.createElement("li");
+        const loginButton = document.createElement("button");
+        loginButton.className = "btn auth-btn";
+        loginButton.textContent = "Login";
+        loginLi.appendChild(loginButton);
+        ul.appendChild(loginLi);
+    }
+
+    // Append All Elements
+    nav.appendChild(ul);
+    navbarContainer.appendChild(logoDiv);
+    navbarContainer.appendChild(nav);
+    header.appendChild(navbarContainer);
+
+    return header;
 }
+
+
 
 function attachNavEventListeners() {
     // Event Listener Helpers

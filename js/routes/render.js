@@ -2,66 +2,42 @@ import { createNav, attachNavEventListeners } from "../components/navigation.js"
 
 async function loadContent(url) {
     const app = document.getElementById("app");
-    const content = document.createElement("div");
-    content.id = "content";
+    app.innerHTML = ""; // Clear previous content
 
-    // Reset app content and reinitialize navigation
-    app.innerHTML = createNav();
-    app.appendChild(content);
+    // Create Main Content Section
+    const main = document.createElement("main");
+    main.id = "content"; // Page content will load here
+
+    // Create Footer
+    const footer = document.createElement("footer");
+    const footerText = document.createElement("p");
+    footerText.textContent = "© 2024 My SPA Platform";
+    footer.appendChild(footerText);
+
+    // Append all sections to the app container
+    app.appendChild(createNav());
+    app.appendChild(main);
+    app.appendChild(footer);
+
     attachNavEventListeners();
 
+    // Load initial page content (e.g., homepage)
     const path = url || window.location.pathname;
+    await renderPageContent(path, main);
+}
 
+async function renderPageContent(path, contentContainer) {
     // Route Handlers (Static Routes)
     const routeHandlers = {
         "/": async () => {
             const { Home } = await import("../pages/home.js");
-            Home();
+            contentContainer.innerHTML = ""; // Clear previous page content
+            Home(contentContainer);
         },
-        // "/profile": async () => {
-        //     const { displayProfile } = await import("../pages/profile.js");
-        //     content.innerHTML = `<div id="profile-section"></div>`;
-        //     displayProfile();
-        // },
-        // "/feed": async () => {
-        //     const { displayFeed } = await import("../pages/feed.js");
-        //     content.innerHTML = `<div id="feed-section"></div>`;
-        //     displayFeed();
-        // },
-        // "/search": async () => {
-        //     const { displaySearch } = await import("../pages/search.js");
-        //     content.innerHTML = `<div id="search-section"></div>`;
-        //     displaySearch();
-        // },
-        // "/create": async () => {
-        //     const { createEventForm } = await import("../pages/events.js");
-        //     content.innerHTML = `<div class="create-section" id="create-section"></div>`;
-        //     createEventForm();
-        // },
-        // "/place": async () => {
-        //     const { createPlaceForm } = await import("../pages/places.js");
-        //     content.innerHTML = `<h1>Create Place</h1><div class="create-place-section id="create-place-section"></div>`;
-        //     createPlaceForm();
-        // },
-        // "/settings": async () => {
-        //     const { displaySettings } = await import("../pages/settings.js");
-        //     content.innerHTML = `<h1>Settings</h1><div id="settings"></div>`;
-        //     displaySettings();
-        // },
-        // "/places": async () => {
-        //     const { displayPlaces } = await import("../pages/places.js");
-        //     content.innerHTML = `<h1>Places</h1><div id="places"></div>`;
-        //     displayPlaces();
-        // },
-        // "/events": async () => {
-        //     const { displayEvents } = await import("../pages/events.js");
-        //     content.innerHTML = `<h1>Events</h1><div id="events"></div><div class="pagination" id="pagination"></div>`;
-        //     displayEvents(1);
-        // },
         // "/login": async () => {
         //     const { displayAuthSection } = await import("../pages/auth.js");
-        //     content.innerHTML = `<div id="auth-section"></div>`;
-        //     displayAuthSection();
+        //     contentContainer.innerHTML = "";
+        //     displayAuthSection(contentContainer);
         // },
     };
 
